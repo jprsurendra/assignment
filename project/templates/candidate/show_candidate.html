@@ -37,7 +37,10 @@
                             <td>{{ candidate.city.city_name}}, {{ candidate.country.country_name}}</td>
                             <td>{% if candidate.owner_info %}{{ candidate.owner_info}} {% else %}NA{% endif %}</td>
                             <td>{{ candidate.employee_size}}</td>
-                            <td>Actions</td>
+                            <td>
+                                <a class="btn btn-success btn-sm" href="/candidate/candidate-detail/{{ candidate.id }}">Edit</a>
+                                <a class="btn btn-danger btn-sm" onclick="return confirm('Do you really want to delete this item!')" href="/delete_stud/{{ value.id }}"> Delete</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

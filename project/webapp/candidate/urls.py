@@ -3,6 +3,9 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
-    url('create_candidate/$', views.create_candidate),
-    url('', views.show_candidate),
+    url(r'^$', views.show_candidate),
+    # url('candidate/$', views.create_candidate),
+    url(r'^candidate-detail/(?P<candidate_id>\d+)/$', views.CandidateDetail.as_view(), name="candidate_detail"),
+
+
 ]

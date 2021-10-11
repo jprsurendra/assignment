@@ -1,2 +1,5 @@
 11/Oct/2021 15:39:58 [WARNING] django.request: Not Found: /userapi/getlinkeduser/
 11/Oct/2021 15:40:32 [WARNING] django.request: Not Found: /userapi/getlinkeduser/
+11/Oct/2021 16:01:23 [WARNING] django.request: Not Found: /candidate-detail/
+11/Oct/2021 16:01:52 [WARNING] django.request: Not Found: /candidate-detail/1
+11/Oct/2021 16:01:59 [WARNING] django.request: Not Found: /candidate-detail/1/
