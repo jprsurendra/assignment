@@ -13,7 +13,7 @@ class CandidateFilter(filters.FilterSet):
     '''
     candidate_name = django_filters.CharFilter(method='filter_country_name')
     exact_candidate_name = django_filters.CharFilter(method='filter_exact_country_name')
-    city_id=django_filters.CharFilter(method='filter_country_id')
+    city_id=django_filters.CharFilter(method='filter_city_id')
     country_id=django_filters.CharFilter(method='filter_country_id')
 
     class Meta:

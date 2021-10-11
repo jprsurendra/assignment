@@ -20,5 +20,6 @@ class CandidateReadSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_candidate_name(self, obj):
-        output = ''.join(x for x in obj.candidate_name.title() if x.isalnum())
-        return output[0].lower() + output[1:]
+        if obj.candidate_name:
+            return obj.candidate_name.title()
+        return None
