@@ -1,6 +1,5 @@
-
-document.write('<script type="text/javascript" src="/static/js/jquery.validate.min.js"></script>');
-document.write('<script type="text/javascript" src="/static/js/additional-methods.min.js"></script>');
+document.write('<script type="text/javascript" src="/static/js/jquery/jquery.validate.min.js"></script>');
+document.write('<script type="text/javascript" src="/static/js/jquery/additional-methods.min.js"></script>');
 
 $(function () {
 
