@@ -6,9 +6,10 @@ from apis.candidate.models import Candidate
 from apis.common.serializers import CitySerializer
 
 class CandidateSerializer(serializers.ModelSerializer):
+    city_id = serializers.IntegerField()
     class Meta:
         model = Candidate
-        fields = '__all__'
+        fields = ['candidate_name', 'address', 'city_id', 'owner_info', 'employee_size' ]
 
 
 class CandidateReadSerializer(serializers.ModelSerializer):
