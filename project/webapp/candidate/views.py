@@ -11,8 +11,27 @@ from django.views.generic import TemplateView
 BASE_URL = constants.BASE_URL
 
 
-def save_candidate(request):
-    return render(request, 'candidate/create_candidate.html')
+def create_candidate(request):
+    if request.method == 'GET':
+        try:
+            context = {}
+            context['candidate'] = None
+            context['city_list'] = None
+            context['candidate_country_id'] = None
+
+            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            resp = requests.get(BASE_URL + "/commonapi/country/",
+                                # data=json.dumps(payload),
+                                headers=headers,
+                                cookies=request.COOKIES)
+            data = json.loads(resp.content)
+            context['country_list'] = data['data']
+
+            return render(request, 'candidate/create_candidate.html', context)
+        except Exception as e:
+            logging.info("Source:webapp/candidate/views.py  Method: create_candidate() - Error = %s:" % (str(e)))
+            logging.info(traceback.format_exc())
+            return HttpResponse(str(e))
 
 def show_candidate(request):
     if request.method == 'GET':
@@ -29,7 +48,7 @@ def show_candidate(request):
 
             return render(request, 'candidate/show_candidate.html', context)
         except Exception as e:
-            logging.info("Class name: %s - Error = %s:" % ('User Login Web App View', str(e)))
+            logging.info("Source:webapp/candidate/views.py  Method: show_candidate() - Error = %s:" % (str(e)))
             logging.info(traceback.format_exc())
             return HttpResponse(str(e))
 
