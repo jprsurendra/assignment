@@ -21,6 +21,7 @@ from project.views import load_on_startup
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^candidate/', include('webapp.candidate.urls')),
     url(r'^commonapi/', include('apis.common.urls')),
     url(r'^candidateapi/', include('apis.candidate.urls')),
 ]
