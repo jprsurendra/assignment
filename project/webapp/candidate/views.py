@@ -50,6 +50,15 @@ class CandidateDetail(TemplateView):
                             cookies=self.request.COOKIES)
         data = json.loads(resp.content)
         context['candidate'] = data['data']
+
+
+        resp = requests.get(BASE_URL + "/commonapi/country/",
+                            # data=json.dumps(payload),
+                            headers=headers,
+                            cookies=self.request.COOKIES)
+        data = json.loads(resp.content)
+        context['country_list'] = data['data']
+
         context['candidate_id'] = candidate_id
         return context
 
