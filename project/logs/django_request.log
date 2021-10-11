@@ -3,3 +3,21 @@
 11/Oct/2021 16:01:23 [WARNING] django.request: Not Found: /candidate-detail/
 11/Oct/2021 16:01:52 [WARNING] django.request: Not Found: /candidate-detail/1
 11/Oct/2021 16:01:59 [WARNING] django.request: Not Found: /candidate-detail/1/
+11/Oct/2021 16:47:38 [ERROR] django.request: Internal Server Error: /candidate/candidate-detail/1/
+Traceback (most recent call last):
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view webapp.candidate.views.CandidateDetail didn't return an HttpResponse object. It returned None instead.
+11/Oct/2021 16:51:58 [ERROR] django.request: Internal Server Error: /candidate/candidate-detail/1/
+Traceback (most recent call last):
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "/home/jiffy/PycharmProjects/asgmt_env/lib/python3.8/site-packages/django/core/handlers/base.py", line 309, in check_response
+    raise ValueError(
+ValueError: The view webapp.candidate.views.CandidateDetail didn't return an HttpResponse object. It returned None instead.

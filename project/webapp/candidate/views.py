@@ -64,8 +64,9 @@ class CandidateDetail(TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = {}
+        print(request.POST)
         # try:
-        #     recieved_json_data = json.loads(request.body)
+        #     recieved_json_data = json.loads(request.POST)
         #
         #     context = {}
         #     t = loader.get_template('customer_care/vendor_detail_booking_history_json.html')
