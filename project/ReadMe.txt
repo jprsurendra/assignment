@@ -28,7 +28,6 @@ http://localhost:8000/commonapi/country/?country_name=We
 
 
 http://localhost:8000/commonapi/city/?country_id=105
-
 {
     "status": true,
     "status_code": 200,
