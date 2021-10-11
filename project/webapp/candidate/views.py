@@ -80,28 +80,36 @@ class CandidateDetail(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        context = {}
-        print(request.POST)
-        # try:
-        #     recieved_json_data = json.loads(request.POST)
-        #
-        #     context = {}
-        #     t = loader.get_template('customer_care/vendor_detail_booking_history_json.html')
-        #     is_records = True
-        #     if (Booking.objects.filter(quotation__vendor_id=kwargs['vendor_id']).filter(
-        #             Q(booking_number__icontains=recieved_json_data['search_param'])).exists()):
-        #
-        #         VendorBookingHistoryResp = requests.get(
-        #             BASE_URL + "/customercareapi/vendor-booking-detail/%s/?number_of_records=4&search_param=%s" % (
-        #             kwargs['vendor_id'], recieved_json_data['search_param']), cookies=self.request.COOKIES)
-        #
-        #     else:
-        #
-        #         VendorBookingHistoryResp = requests.get(
-        #             BASE_URL + "/customercareapi/vendor-booking-detail/%s/?number_of_records=4" % (kwargs['vendor_id']),
-        #             cookies=self.request.COOKIES)
-        #     context['VendorBookingHistory'] = json.loads(VendorBookingHistoryResp.content)
-        #
+
+        post_data =  request.POST
+        payload = {
+                    # 'id': post_data.get('id', None),
+                    'candidate_name': post_data.get('candidate_name', None),
+                    'address': post_data.get('address', None),
+                    'city_id': post_data.get('city_id', None),
+                    # 'owner_info': post_data.get('owner_info', None)
+        }
+
+        id = post_data.get('id', None)
+        if id:
+            payload['id']= id
+            _url="/candidateapi/candidate/%s/"% (id)
+        else:
+            _url = "/candidateapi/candidate/"
+
+        owner_info = post_data.get('owner_info', None)
+        if owner_info:
+            payload['owner_info']= owner_info
+
+        headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        resp = requests.post(BASE_URL + _url,
+                            data=json.dumps(payload),
+                            headers=headers,
+                            cookies=self.request.COOKIES)
+        print("resp.content: ", resp.content)
+        data = json.loads(resp.content)
+
+
         #     return HttpResponse(
         #         json.dumps({'vendor_booking_history': t.render(context), 'is_records': str(is_records)}))
         #
