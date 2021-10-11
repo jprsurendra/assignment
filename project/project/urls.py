@@ -21,7 +21,7 @@ from project.views import load_on_startup
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^commonapi/', include('apis.common.urls', namespace='common')),
+    url(r'^commonapi/', include('apis.common.urls')),
 ]
 
 load_on_startup()

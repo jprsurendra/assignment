@@ -30,7 +30,7 @@ class City(AbstractDateTime):
         City Modal
     '''
     city_name = models.CharField(max_length=100, db_index=True)
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'mst_city'
