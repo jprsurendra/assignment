@@ -5,6 +5,11 @@ from rest_framework import serializers
 from apis.candidate.models import Candidate
 from apis.common.serializers import CitySerializer
 
+class CandidateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Candidate
+        fields = '__all__'
+
 
 class CandidateReadSerializer(serializers.ModelSerializer):
     candidate_name = serializers.SerializerMethodField()
