@@ -51,6 +51,9 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Candidate Name:</label>
                 <div class="col-sm-4">
+                    {% if candidate.id %}
+                    <input type="text" name="id" class="cls_owner_info" value="{{ candidate.id}}">
+                    {% endif %}
                     <input type="text" name="candidate_name" class="cls_cand_name" value="{{ candidate.candidate_name}}">
                 </div>
             </div>
