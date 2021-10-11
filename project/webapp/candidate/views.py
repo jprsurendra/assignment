@@ -55,10 +55,10 @@ class CandidateDetail(TemplateView):
         context['city_list'] = None
         context['candidate_country_id'] = None
         if candidate:
-            candidate_city_id = candidate.get("candidate", {}).get("city", {}).get("id", None)
+            candidate_city_id = candidate.get("city", {}).get("id", None)
             if candidate_city_id:
                 context['city_id'] = candidate_city_id
-                candidate_country_id = candidate.get("candidate", {}).get("city", {}).get("country", {}).get("id", None)
+                candidate_country_id = candidate.get("city", {}).get("country", {}).get("id", None)
                 if candidate_country_id:
                     context['candidate_country_id'] = candidate_country_id
                     resp = requests.get(BASE_URL + "/commonapi/city/?country_id=%s"%(candidate_country_id),

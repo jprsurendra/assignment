@@ -30,7 +30,9 @@ class CandidateViewSet(BaseModelViewSet):
     def get_serializer_class(self, request=None, params=None, **kwargs):
         serializer_action_classes = {
             'list': CandidateReadSerializer,
-            'retrieve': CandidateSerializer
+            'retrieve': CandidateReadSerializer,
+            'create': CandidateSerializer,
+            'update': CandidateSerializer
         }
         if hasattr(self, 'action'):
             return serializer_action_classes.get(self.action, self.serializer_class)
