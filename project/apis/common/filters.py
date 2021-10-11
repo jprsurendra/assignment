@@ -43,6 +43,7 @@ class CityFilter(filters.FilterSet):
     city_name = django_filters.CharFilter(method='filter_city_name')
     exact_city_name = django_filters.CharFilter(method='filter_exact_city_name')
     city_id=django_filters.CharFilter(method='filter_is_city_id')
+    country_id=django_filters.CharFilter(method='filter_country_id')
 
     class Meta:
         model = City
@@ -61,5 +62,10 @@ class CityFilter(filters.FilterSet):
     def filter_is_city_id(self, queryset, name, value):
         if value:
             return queryset.filter(id=value)
+        return queryset
+
+    def filter_country_id(self, queryset, name, value):
+        if value:
+            return queryset.filter(country_id=value)
         return queryset
 
