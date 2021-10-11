@@ -49,7 +49,24 @@ class CandidateDetail(TemplateView):
                             headers=headers,
                             cookies=self.request.COOKIES)
         data = json.loads(resp.content)
-        context['candidate'] = data['data']
+        candidate= data['data']
+        context['candidate'] = candidate
+
+        context['city_list'] = None
+        context['candidate_country_id'] = None
+        if candidate:
+            candidate_city_id = candidate.get("candidate", {}).get("city", {}).get("id", None)
+            if candidate_city_id:
+                context['city_id'] = candidate_city_id
+                candidate_country_id = candidate.get("candidate", {}).get("city", {}).get("country", {}).get("id", None)
+                if candidate_country_id:
+                    context['candidate_country_id'] = candidate_country_id
+                    resp = requests.get(BASE_URL + "/commonapi/city/?country_id=%s"%(candidate_country_id),
+                                        # data=json.dumps(payload),
+                                        headers=headers,
+                                        cookies=self.request.COOKIES)
+                    data = json.loads(resp.content)
+                    context['city_list'] = data['data']
 
 
         resp = requests.get(BASE_URL + "/commonapi/country/",
