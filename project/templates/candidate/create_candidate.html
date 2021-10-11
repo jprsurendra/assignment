@@ -4,10 +4,155 @@
     <meta charset="UTF-8">
     <title>Create</title>
     {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-    <script>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+
+</head>
+<body>
+    <form id="entry-form" > <!-- method="POST" class="post-form" action="."> -->
+        {% csrf_token %}
+        <div class="container">
+            <br>
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-4">
+                    <h3>Candidate Details</h3>
+                </div>
+            </div>
+            <div class="form-group row">
+                {% if candidate.id %}
+                <input type="hidden" name="id" class="cls_owner_info" value="{{ candidate.id}}">
+                {% endif %}
+
+                <label class="col-sm-2 col-form-label" for="candidate_name">Candidate Name:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="candidate_name" name="candidate_name" class="form-control validate_form_input cls_required" value="{{ candidate.candidate_name }}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="address">Address:</label>
+                <div class="col-sm-4">
+                    <input type="text" id="address" name="address" class="form-control validate_form_input cls_required" value="{{ candidate.address}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Country:</label>
+                <div class="col-sm-4">
+                    <select class="form-control validate_form_input cls_required" id='country_id'   onchange="btn_country_click();">
+                        <option value="">Please Select Country</option>
+                        {% for country in country_list %}
+                        <option value="{{ country.id }}" {% if candidate.city.country.id == country.id %} selected {% endif %}>{{ country.country_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">City:</label>
+                <div class="col-sm-4">
+                    <select class="form-control validate_form_input cls_required"  id='city_id' name='city_id' >
+                        <option value="">Please Select City</option>
+                        {% if candidate.city.id %}
+                            {% for city in city_list %}
+                            <option value="{{ city.id }}" {% if candidate.city.id == city.id %} selected {% endif %}>{{ city.city_name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                 <label class="col-sm-2 col-form-label">Owner Info:</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="owner_info" class="form-control validate_form_input" value="{{ candidate.owner_info}}">
+                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" name="employee_size">Employee Size:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control validate_form_input cls_required cls_numeric_three only-numbers" maxlength="3" value="{{ candidate.employee_size}}">
+                    </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-1 col-form-label"></label>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                    <!-- <button class="btn btn-primary">Submit</button> -->
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" />
+<script>
+        $(document).ready(function () {
+            common_validate_form('entry-form', true, btn_submit_click, null);
+        });
+
+        function btn_submit_click() {
+            alert("btn_submit_click")
+            $("#email_error").text('');
+            $('.btn_login').addClass('disable-a');
+
+            var data = $('#login-form').serializeArray().reduce(function (obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
+
+            $('#preloader').removeClass("disNo");
+            $.ajax({
+                type: 'POST',
+                url: '/userapi/login',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (data) {
+                    if (typeof data.data == "undefined") {
+                        //data = data;
+                    }else{
+                       data = data.data;
+                    }
+                    if (data.message == "Login Successful") {
+                        if(data.next_url){
+                            if(data.next_url == "/quote/"){                         // DATE: March 4,2021
+                                if(data.user_type == "Shipper"){                    //when Shipper user Login/homepage
+                                    $(location).attr('href',data.next_url);
+                                }
+                                else{                                               //when Internal User came from HomePage
+
+                                    $(location).attr('href','/customer-care'+data.next_url);
+                                }
+
+                            }else{                                                  // DATE: March 4,2021
+                                $(location).attr('href',data.next_url);
+                            }
+
+                        } else{
+                            $(location).attr('href',data.url);
+                        }
+                    } else {
+                        $("#email_error").text(data.message);
+                        $("#login-form")[0].reset();
+                        $('.btn_login').removeClass('disable-a');
+                        $('#preloader').addClass("disNo");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $("#login-form")[0].reset();
+                    $('.btn_login').removeClass('disable-a');
+
+                    setTimeout(function(){
+                        $('#preloader').addClass("disNo")
+                        var err = eval("(" + xhr.responseText + ")");
+                        $("#email_error").text(err.data.message);
+                     }, 700);
+
+                },
+                contentType: "application/json"
+            });
+        }
+
         function btn_country_click(){
             debugger
             if($('#country_id').val()){
@@ -35,81 +180,5 @@
             }
         }
     </script>
-
-</head>
-<body>
-    <form method="POST" class="post-form" action=".">
-        {% csrf_token %}
-        <div class="container">
-            <br>
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label"></label>
-                <div class="col-sm-4">
-                    <h3>Candidate Details</h3>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Candidate Name:</label>
-                <div class="col-sm-4">
-                    {% if candidate.id %}
-                    <input type="text" name="id" class="cls_owner_info" value="{{ candidate.id}}">
-                    {% endif %}
-                    <input type="text" name="candidate_name" class="cls_cand_name" value="{{ candidate.candidate_name}}">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Address:</label>
-                <div class="col-sm-4">
-                    <input type="text" name="address" class="cls_cand_address" value="{{ candidate.address}}">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Country:</label>
-                <div class="col-sm-4">
-                    <select class="cls_cand_city" id='country_id'   onchange="btn_country_click();">
-                        <option value="">Please Select Country</option>
-                        {% for country in country_list %}
-                        <option value="{{ country.id }}" {% if candidate.city.country.id == country.id %} selected {% endif %}>{{ country.country_name}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">City:</label>
-                <div class="col-sm-4">
-                    <select class="cls_cand_city"  id='city_id' name='city_id' >
-                        <option value="">Please Select City</option>
-                        {% if candidate.city.id %}
-                            {% for city in city_list %}
-                            <option value="{{ city.id }}" {% if candidate.city.id == city.id %} selected {% endif %}>{{ city.city_name}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
-                 <label class="col-sm-2 col-form-label">Owner Info:</label>
-                    <div class="col-sm-4">
-                        <input type="text" name="owner_info" class="cls_owner_info" value="{{ candidate.owner_info}}">
-                    </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label" name="employee_size">Employee Size:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="cls_employee_size" value="{{ candidate.employee_size}}">
-                    </div>
-            </div>
-            
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label"></label>
-                <div class="col-sm-4">
-                    <button class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" />
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" />
-
 </body>
 </html>
