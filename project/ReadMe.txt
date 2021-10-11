@@ -28,19 +28,26 @@ http://localhost:8000/commonapi/country/?country_name=We
 
 
 http://localhost:8000/commonapi/city/?country_id=105
+
 {
     "status": true,
     "status_code": 200,
     "data": [
         {
             "id": 29651,
-            "city_name": "jaipur",
-            "country": 105
+            "country": {
+                "id": 105,
+                "country_name": "India"
+            },
+            "city_name": "jaipur"
         },
         {
             "id": 29652,
-            "city_name": "jaipur",
-            "country": 105
+            "country": {
+                "id": 105,
+                "country_name": "India"
+            },
+            "city_name": "jaipur"
         }
     ]
 }
