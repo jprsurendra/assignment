@@ -12,7 +12,7 @@ class AbstractDateTime(models.Model):
         abstract = True
 
 
-class Country(AbstractDateTime):
+class Country(models.Model):
     '''
     Country Model
     '''
@@ -25,7 +25,7 @@ class Country(AbstractDateTime):
         return "Country-{%s-%s}"%(self.id, self.country_name)
 
 
-class City(AbstractDateTime):
+class City(models.Model):
     '''
         City Modal
     '''
