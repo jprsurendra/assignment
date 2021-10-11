@@ -30,7 +30,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    {% for candidate in candidates %}
+                        <tr>
+                            <td>{{ candidate.candidate_name}}</td>
+                            <td>{{ candidate.address}}</td>
+                            <td>{{ candidate.city.city_name}}, {{ candidate.country.country_name}}</td>
+                            <td>{% if candidate.owner_info %}{{ candidate.owner_info}} {% else %}NA{% endif %}</td>
+                            <td>{{ candidate.employee_size}}</td>
+                            <td>Actions</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

@@ -6,6 +6,9 @@ DEBUG = True
 
 USE_I18N = True
 
+BASE_URL = 'http://localhost:8000'
+APP_URL = 'http://192.168.29.213:8000'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
