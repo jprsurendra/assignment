@@ -4,53 +4,47 @@ $(document).ready(function () {
 
 function btn_submit_click() {
     alert("btn_submit_click")
-    $("#email_error").text('');
-    $('.btn_login').addClass('disable-a');
+    debugger
+    //$("#email_error").text('');
+    $('.btn_save').addClass('disable-a');
 
-    var data = $('#login-form').serializeArray().reduce(function (obj, item) {
+    var data = $('#entry-form').serializeArray().reduce(function (obj, item) {
             obj[item.name] = item.value;
             return obj;
         }, {});
 
     $('#preloader').removeClass("disNo");
+    let _url = "/candidateapi/candidate/";
+    let method_type ='POST';
+    try {
+        let candidate_id = $('#candidate_id').val();
+        if (typeof candidate_id == "undefined") {
+            // do nothing, New Object will create
+        }else {
+            _url = _url + candidate_id + "/";
+            method_type = 'PUT';
+        }
+    }catch(err) {
+      // do nothing, New Object will create
+    }
     $.ajax({
-        type: 'POST',
-        url: '/userapi/login',
+        type: method_type,
+        url: _url,
         data: JSON.stringify(data),
         dataType: 'json',
         success: function (data) {
-            if (typeof data.data == "undefined") {
-                //data = data;
-            }else{
-               data = data.data;
-            }
-            if (data.message == "Login Successful") {
-                if(data.next_url){
-                    if(data.next_url == "/quote/"){                         // DATE: March 4,2021
-                        if(data.user_type == "Shipper"){                    //when Shipper user Login/homepage
-                            $(location).attr('href',data.next_url);
-                        }
-                        else{                                               //when Internal User came from HomePage
-
-                            $(location).attr('href','/customer-care'+data.next_url);
-                        }
-
-                    }else{                                                  // DATE: March 4,2021
-                        $(location).attr('href',data.next_url);
-                    }
-
-                } else{
-                    $(location).attr('href',data.url);
-                }
+            debugger
+            if(data.status_code==200){
+                alert("Data Successful Saved");
             } else {
                 $("#email_error").text(data.message);
-                $("#login-form")[0].reset();
-                $('.btn_login').removeClass('disable-a');
+                $("#entry-form")[0].reset();
+                $('.btn_save').removeClass('disable-a');
                 $('#preloader').addClass("disNo");
             }
         },
         error: function (xhr, status, error) {
-            $("#login-form")[0].reset();
+            $("#entry-form")[0].reset();
             $('.btn_login').removeClass('disable-a');
 
             setTimeout(function(){
