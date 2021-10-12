@@ -34,7 +34,7 @@ function btn_submit_click() {
         dataType: 'json',
         success: function (data) {
             debugger
-            if(data.status_code==200){
+            if(data.status_code==200 || data.status_code==201){
                 alert("Data Successful Saved");
                 window.location.href = '/candidate/';
             } else {
