@@ -66,7 +66,7 @@ function create_data_table(id, data) {
 //renderBookingTableBody
 function render_data_table_body(table_data, page, page_size) {
     let row_data = table_data.data.results;
-    table_data.data['page_info'] = {'num_pages': table_data.data.count,
+    let page_info = {'num_pages': Math.ceil(table_data.data.count/parseInt(page_size)),
                       'start_count': page_size * (page - 1) + 1,
                       'end_count': (page_size * (page - 1)) + 1 + row_data.length,
                       'current_page': page,
@@ -74,7 +74,9 @@ function render_data_table_body(table_data, page, page_size) {
                       'next_url': table_data.data.next,
                       'previous_url': table_data.data.previous
                       };
-
+    table_data.data['page_info'] = page_info
+    console.log("page_info: ")
+    console.log(page_info)
 
     if (!$.fn.DataTable.isDataTable("#c_data_table")) {
         create_data_table("#c_data_table");
@@ -119,6 +121,7 @@ function fetch_data(page = 1, candidate_filter_data = {}) {
         },
     });
 }
+
 function candidate_row_count_change() {
   fetch_data(1, candidate_filter_data)
 }
@@ -155,4 +158,10 @@ function btn_delete_click(id) {
         }
     });
 
+}
+
+function goToPage(button, page) {
+  button.classList.remove("btn-primary");
+  button.classList.add("btn-warning");
+  fetch_data(page, candidate_filter_data);
 }

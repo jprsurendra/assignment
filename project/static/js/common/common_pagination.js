@@ -44,13 +44,13 @@ function common_pagination(data, ctl_id_prefix, navFnName) {
         }
 
         if (data.data.next || data.data.next_url) {
-          $('#' + ctl_id_prefix + 'next_url').html(' <button class="btn btn-primary" onclick="'+navFnName+'(this,' + (parseInt(page) + 1) + ')"> <span class="fa fa-angle-right"></span> </button>');
+          $('#' + ctl_id_prefix + 'next_url').html(' <button class="btn btn-primary" onclick="'+navFnName+'(this,' + (parseInt(page) + 1) + ')"> <span class="fa fa-angle-right"> > </span> </button>');
         } else {
           $('#' + ctl_id_prefix + 'next_url').html('');
         }
 
         if (data.data.previous || data.data.previous_url) {
-          $('#' + ctl_id_prefix + 'previous_url').html(' <button class="btn btn-primary"onclick="'+navFnName+'(this,' + (parseInt(page) - 1) + ')"> <span class="fa fa-angle-left"></span> </button>')
+          $('#' + ctl_id_prefix + 'previous_url').html(' <button class="btn btn-primary"onclick="'+navFnName+'(this,' + (parseInt(page) - 1) + ')"> <span class="fa fa-angle-left"> < </span> </button>')
         } else {
           $('#' + ctl_id_prefix + 'previous_url').html('');
         }
