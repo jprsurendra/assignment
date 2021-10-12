@@ -1,0 +1,81 @@
+.error{
+    color: red;
+}
+
+.table.listing-table th{
+	color: #1E4E87;
+	padding-right: 1.5rem !important;
+}
+.table.listing-table th, .table.listing-table td{
+	vertical-align: middle;
+}
+.table.listing-table td:not(:first-child)::before{
+	content: '';
+	border-left: 1px solid #ccc;
+	height: 24px;
+	position: absolute;
+	margin-left: -1rem;
+}
+.dataTables_length, .dataTables_info{
+	padding-left: 2.5rem;
+}
+.dataTables_paginate{
+	padding-right: 2.5rem;
+}
+div.dataTables_wrapper div.dataTables_info{
+	padding-top: 5px;
+}
+.expand_td td {
+	white-space: nowrap;
+}
+.pointer{
+	cursor: pointer;
+}
+
+.table-top-filter{
+	padding: 1rem 2.5rem;
+	background: #F7FAFF;
+	display: flex;
+	border-top: 1px solid #1E4E87;
+	border-bottom: 1px solid #1E4E87;
+	/* font-family: Roboto; */
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 19px;
+}
+.table-top-filter > a{
+	padding-right: 40px;
+	color: #505050;
+	cursor: pointer;
+}
+.table-top-filter > a.active{
+	color: #156FD9;
+}
+/*listing table*/
+.table.listing-table .inside-table{
+	width: 100%;
+	background: transparent;
+}
+.table.listing-table .inside-table td, .table.listing-table .inside-table td:not(:first-child):not(:last-child), .table.listing-table .inside-table th:not(:first-child):not(:last-child){
+	border: none;
+	padding: 5px 10px;
+	/*padding-top: 0;
+	padding-bottom: 0;*/
+}
+.table.listing-table .inside-table td::before{
+	content: none;
+}
+.table.listing-table .inside-table tr:nth-child(odd) td{
+	font-weight: 500;
+}
+.table.listing-table .inside-table tr:nth-child(even) td{
+	color: #999;
+}
+.table.listing-table tr.shown > td{
+	background: #EAEEFA;
+}
+.table.listing-table tr.shown + tr > td{
+	padding: 10px 2.5rem;
+	background: #F2F4F9;
+}
