@@ -51,11 +51,11 @@ function create_data_table(id, data) {
 function render_data_table_body(table_data) {
     let row_data = table_data.data.results;
 
-    if (!$.fn.DataTable.isDataTable("#booking_table")) {
-        create_data_table("#booking_table");
+    if (!$.fn.DataTable.isDataTable("#c_data_table")) {
+        create_data_table("#c_data_table");
     }
 
-    $("#booking_table").DataTable().clear().draw();
+    $("#c_data_table").DataTable().clear().draw();
     $("#div_showing_bookings").removeClass('d-flex');
     $("#div_showing_bookings").hide();
 
@@ -64,7 +64,7 @@ function render_data_table_body(table_data) {
             let action_td = '<a className="btn btn-success btn-sm" href="/candidate/candidate-detail/' + row.id + '">Edit</a>' +
                             '<a className="btn btn-danger btn-sm" onClick="btn_delete_click(\'' + row.id + '\');"> Delete</a>';
 
-            $("#booking_table").DataTable().row.add({
+            $("#c_data_table").DataTable().row.add({
                   candidate_name: row.candidate_name || "N/A",
                   address: row.address || "N/A",
                   city: row.city.city_name + ' (' + row.city.country.country_name+ ')' || "N/A",
