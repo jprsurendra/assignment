@@ -36,6 +36,7 @@ function btn_submit_click() {
             debugger
             if(data.status_code==200){
                 alert("Data Successful Saved");
+                window.location.href = '/candidate/';
             } else {
                 $("#email_error").text(data.message);
                 $("#entry-form")[0].reset();
