@@ -9,6 +9,23 @@ let save_all_rendered_candidate_table_data = {}
 
 $(document).ready(function () {
     fetch_data();
+
+    $("#c_data_table")
+    .DataTable()
+    .columns()
+    .every(function () {
+      let key = $(this.header()).attr("name");
+      $("input", this.footer()).on("keyup change clear", function () {
+        if ($.trim(this.value).length > 2) {
+          candidate_filter_data[`${key}`] = $.trim(this.value);
+          fetch_data(1, candidate_filter_data);
+        } else if (candidate_filter_data[`${key}`]) {
+          candidate_filter_data[`${key}`] = "";
+          fetch_data(1, candidate_filter_data);
+        }
+      });
+    });
+
 });
 //createBookingTable
 function create_data_table(id, data) {
@@ -22,7 +39,7 @@ function create_data_table(id, data) {
       data: "actions",
       render: function (data, type, row) {
           return (
-              '<button class="btn btn-primary btn-sm mr-3" href="/candidate/candidate-detail/' + row.id + '">Edit</button>' +
+              '<a class="btn btn-primary btn-sm mr-3" href="/candidate/candidate-detail/' + row.id + '">Edit</a>' +
               '<button class="btn btn-danger btn-sm" onClick="btn_delete_click(\'' + row.id + '\');"> Delete</button>'
           );
       },
