@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 function btn_submit_click() {
-    debugger
+    // debugger
     //$("#email_error").text('');
     $('.btn_save').addClass('disable-a');
 
@@ -33,7 +33,7 @@ function btn_submit_click() {
         data: JSON.stringify(data),
         dataType: 'json',
         success: function (data) {
-            debugger
+            // debugger
             if(data.status_code==200 || data.status_code==201){
                 alert("Data Successful Saved");
                 window.location.href = '/candidate/';
@@ -60,7 +60,7 @@ function btn_submit_click() {
 }
 
 function btn_country_click(){
-    debugger
+    // debugger
     if($('#country_id').val()){
         $.ajax({
             method: 'GET',

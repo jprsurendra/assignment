@@ -127,7 +127,7 @@ function candidate_row_count_change() {
 }
 
 function btn_delete_click(id) {
-    debugger
+    // debugger
     $.confirm({
         title: '',
         content: 'This action will delete candidate permanently, Do you want to continue?',
