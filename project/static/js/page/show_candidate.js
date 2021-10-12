@@ -9,7 +9,6 @@ let save_all_rendered_candidate_table_data = {}
 
 $(document).ready(function () {
     fetch_data();
-
 });
 //createBookingTable
 function create_data_table(id, data) {
@@ -23,8 +22,8 @@ function create_data_table(id, data) {
       data: "actions",
       render: function (data, type, row) {
           return (
-              '<a className="btn btn-success btn-sm" href="/candidate/candidate-detail/' + row.id + '">Edit</a>' +
-              '<a className="btn btn-danger btn-sm" onClick="btn_delete_click(\'' + row.id + '\');"> Delete</a>'
+              '<button class="btn btn-primary btn-sm mr-3" href="/candidate/candidate-detail/' + row.id + '">Edit</button>' +
+              '<button class="btn btn-danger btn-sm" onClick="btn_delete_click(\'' + row.id + '\');"> Delete</button>'
           );
       },
     },
@@ -71,6 +70,7 @@ function render_data_table_body(table_data) {
             }).draw();
         });
         let span_of_listing_count_html = common_pagination(table_data, 'candidate_');
+        console.log(span_of_listing_count_html)
         $("#candidate_pageination_info").html(span_of_listing_count_html);
         $("#div_showing_datas").addClass('d-flex');
         $("#div_showing_datas").show();
@@ -95,4 +95,38 @@ function fetch_data(page = 1, candidate_filter_data = {}) {
 }
 function candidate_row_count_change() {
   fetch_data(1, candidate_filter_data)
+}
+
+function btn_delete_click(id) {
+    debugger
+    $.confirm({
+        title: '',
+        content: 'This action will delete candidate permanently, Do you want to continue?',
+        buttons: {
+            yes: {
+                btnClass: 'btn button btn-for-alert',
+                action: function () {
+                    $.ajax({
+                        url: "/candidateapi/candidate/" + id,
+                        // data: {pk:91},
+                        type: 'DELETE',
+                        contentType: 'application/json',
+                        success: function(data) {
+                            console.log(data)
+                            if(data.status_code==200){
+                              alert("Data Successful Deleted");
+                            } else {
+                                alert("Can't complete the request there are some errors occurred.");
+                            }
+                            window.location.href = '/candidate/';
+                        },
+                    });
+                }//action
+            },
+            no: {
+                btnClass: 'btn button no-bg-button btn-for-alert'
+            }
+        }
+    });
+
 }

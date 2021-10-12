@@ -8,6 +8,7 @@
     {% load static %}
     <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery/jquery-confirm.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/data_table/datatables.min.js'%}"></script>
 
     <script src="{% static 'js/common/common.js' %}"></script>
@@ -16,7 +17,7 @@
     <script src="{% static 'js/common/common_pagination.js' %}"></script>
     <script src="{% static 'js/page/show_candidate.js' %}"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" />
     <link href="{% static 'css/jquery-confirm.min.css'%}" rel="stylesheet" />
     <link href="{% static 'css/datatables.min.css'%}" rel="stylesheet" />
     <link href="{% static 'css/main.css'%}" rel="stylesheet" />
@@ -37,7 +38,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+        <div class="col-12 text-right p-0" ><a href="/candidate/new-candidate/" class="btn btn-primary mt-4 mb-4">Add New Record</a></div>
+        <div class="row mb-5">
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -46,8 +48,8 @@
             </ul>
             {% endif %}
             <div class="col-12 data-list-wrapper"> <!-- booking-list-wrapper -->
-                <div class="table-responsive nicescroll" style="margin-bottom: 24px;">
-                    <table id="c_data_table" class="table listing-table expand_td w-100">
+                <div class="table-responsive border nicescroll">
+                    <table id="c_data_table" class="table listing-table m-0 expand_td w-100">
                         <thead>
                             <th name='candidate_name' >Candidate Name</th>
                             <th name='address' >Address</th>
@@ -69,7 +71,7 @@
                         <tbody>
                         </tbody>
                    </table>
-                   <div id="div_showing_datas" class="col-12 d-flex justify-content-between align-items-center pagination_conatiner candidate_table_bottom" style="">
+                   <div id="div_showing_datas" class="col-12 pl-2 pr-0 pt-3 pb-3 d-flex justify-content-between align-items-center pagination_conatiner candidate_table_bottom" style="background-color: #84bfff21!important;">
                        <div class="row_count_container">
                             <!-- <span>Show</span> -->
                             <select class="form-control" name="page_size" id="no_of_candidate_rows" onchange="candidate_row_count_change();" style="display: inline; height: 25px; padding: 0 5px; width: 75px;">
@@ -89,13 +91,7 @@
                   </div>
                 </div>
             </div>
-
         </div>
-    </div>
-    <br><br>
-    <center><a href="/candidate/new-candidate/" class="btn btn-primary">Add New Record</a></center>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" /> -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" />
-
+      </div>
 </body>
 </html>
