@@ -44,7 +44,7 @@
                             <td>{{ candidate.employee_size}}</td>
                             <td>
                                 <a class="btn btn-success btn-sm" href="/candidate/candidate-detail/{{ candidate.id }}">Edit</a>
-                                <a class="btn btn-danger btn-sm" onclick="btn_dekete_click('{{ candidate.id }}');"> Delete</a>
+                                <a class="btn btn-danger btn-sm" onclick="btn_delete_click('{{ candidate.id }}');"> Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

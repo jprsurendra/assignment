@@ -1,5 +1,5 @@
 
-function btn_dekete_click(id) {
+function btn_delete_click(id) {
     debugger
     $.confirm({
         title: '',
