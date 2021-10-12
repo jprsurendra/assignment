@@ -12,6 +12,8 @@
 
     <script src="{% static 'js/common/common.js' %}"></script>
     <!-- <script src="{ % static 'js/page/create_candidate.js' % }"></script> -->
+
+    <script src="{% static 'js/common/common_pagination.js' %}"></script>
     <script src="{% static 'js/page/show_candidate.js' %}"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -48,7 +50,7 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <div class="col-12 booking-list-wrapper">
+            <div class="col-12 data-list-wrapper"> <!-- booking-list-wrapper -->
                 <div class="table-responsive nicescroll" style="margin-bottom: 24px;">
                     <table id="c_data_table" class="table listing-table expand_td w-100">
                         <thead>
@@ -72,10 +74,10 @@
                         <tbody>
                         </tbody>
                    </table>
-                   <div id="div_showing_bookings" class="col-12 d-flex justify-content-between align-items-center pagination_conatiner booking_table_bottom" style="">
+                   <div id="div_showing_datas" class="col-12 d-flex justify-content-between align-items-center pagination_conatiner candidate_table_bottom" style="">
                        <div class="row_count_container">
                             <!-- <span>Show</span> -->
-                            <select class="form-control" name="page_size" id="no_of_booking_rows" onchange="bookingRowCountChange();" style="display: inline; height: 25px; padding: 0 5px; width: 75px;">
+                            <select class="form-control" name="page_size" id="no_of_candidate_rows" onchange="candidate_row_count_change();" style="display: inline; height: 25px; padding: 0 5px; width: 75px;">
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -83,11 +85,11 @@
                             </select>
                             <span>Records</span>
                        </div>
-                       <p class="m-0" >Showing bookings from <span id="booking_pageination_info"></span></p>
+                       <p class="m-0" >Showing candidates from <span id="candidate_pageination_info"></span></p>
                        <div class="pagination">
-                          <div class="previous" id="booking_previous_url"></div>
-                          <div class="url-buttons"><span id="booking_url_buttons"></span></div>
-                          <div class="next" id="booking_next_url"></div>
+                          <div class="previous" id="candidate_previous_url"></div>
+                          <div class="url-buttons"><span id="candidate_url_buttons"></span></div>
+                          <div class="next" id="candidate_next_url"></div>
                        </div>
                   </div>
                 </div>
