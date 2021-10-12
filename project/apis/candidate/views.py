@@ -1,7 +1,11 @@
+import logging
+import traceback
+
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets, permissions
+from requests import Response
+from rest_framework import viewsets, permissions, status
 
 from django_filters import rest_framework as filters
 
@@ -37,3 +41,13 @@ class CandidateViewSet(BaseModelViewSet):
         if hasattr(self, 'action'):
             return serializer_action_classes.get(self.action, self.serializer_class)
         return self.serializer_class
+
+    def partial_update(self, request, *args, **kwargs):
+        try:
+            kwargs['partial'] = True
+            return self.update(request, *args, **kwargs)
+        except Exception as e:
+            logging.info("Path: apis/candidate/views.py Source: partial_update() Error: %s", str(e))
+            logging.info(traceback.format_exc())
+            return Response(status=status.HTTP_400_BAD_REQUEST,
+                            data={'detail': 'There was an error processing your request. Please try again later ...', })

@@ -3,7 +3,6 @@ $(document).ready(function () {
 });
 
 function btn_submit_click() {
-    alert("btn_submit_click")
     debugger
     //$("#email_error").text('');
     $('.btn_save').addClass('disable-a');
