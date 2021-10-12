@@ -13,6 +13,7 @@ class CandidateFilter(filters.FilterSet):
     '''
     candidate_name = django_filters.CharFilter(method='filter_candidate_name')
     address = django_filters.CharFilter(method='filter_address')
+    owner_info = django_filters.CharFilter(method='filter_owner_info')
     exact_candidate_name = django_filters.CharFilter(method='filter_exact_country_name')
     city_name = django_filters.CharFilter(method='filter_city_name')
     city_id=django_filters.CharFilter(method='filter_city_id')
@@ -26,6 +27,11 @@ class CandidateFilter(filters.FilterSet):
     def filter_candidate_name(self, queryset, name, value):
         if value:
             return queryset.filter(candidate_name__icontains=value)
+        return queryset
+
+    def filter_owner_info(self, queryset, name, value):
+        if value:
+            return queryset.filter(owner_info__icontains=value)
         return queryset
 
     def filter_address(self, queryset, name, value):
