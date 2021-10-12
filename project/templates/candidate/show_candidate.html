@@ -8,11 +8,14 @@
     {% load static %}
     <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery/jquery-confirm.js' %}"></script>
+    <script src="{% static 'js/data_table/datatables.min.js'%}"></script>
+
     <script src="{% static 'js/common/common.js' %}"></script>
     <script src="{% static 'js/page/show_candidate.js' %}"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="{% static 'css/jquery-confirm.min.css'%}" rel="stylesheet" />
+    <link href="{% static 'css/datatables.min.css'%}" rel="stylesheet" />
     <link href="{% static 'css/main.css'%}" rel="stylesheet" />
 
 </head>
@@ -26,15 +29,15 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <table class="table table-hover">
+            <table id='candidates_table' class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Candidate Name</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>Owner Info</th>
-                        <th>Employee Size</th>
-                        <th>Actions</th>
+                        <th name='candidate_name' >Candidate Name</th>
+                        <th name='address' >Address</th>
+                        <th name='city' >City</th>
+                        <th name='owner_info' >Owner Info</th>
+                        <th name='employee_size' >Employee Size</th>
+                        <th name='' >Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,5 +62,6 @@
     <center><a href="/candidate/new-candidate/" class="btn btn-primary">Add New Record</a></center>
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" /> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" />
+
 </body>
 </html>
