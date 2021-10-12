@@ -19,6 +19,24 @@
     <link href="{% static 'css/datatables.min.css'%}" rel="stylesheet" />
     <link href="{% static 'css/main.css'%}" rel="stylesheet" />
 
+
+<style type="text/css">
+  .page-top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  tfoot {
+    display: table-header-group;
+  }
+  {% if is_vendor == True %}
+   #booking_table th,
+   #booking_table td{
+    white-space: nowrap;
+   }
+  {% endif %}
+</style>
 </head>
 <body>
     <div class="container">
@@ -30,70 +48,51 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <table id='candidates_table' class="table table-hover">
-                <thead>
-                    <tr>
-                        <th name='candidate_name' >Candidate Name</th>
-                        <th name='address' >Address</th>
-                        <th name='city' >City</th>
-                        <th name='owner_info' >Owner Info</th>
-                        <th name='employee_size' >Employee Size</th>
-                        <th name='' >Actions</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                      <th><input class="form-control form-control-sm w-100" placeholder="Quotation No." type="text" /></th>
-                      <th>
-                        <select id="quote_st_filter" class="custom-select custom-select-sm w-100">
-                          <option value="">All</option>
-                          <option value="1">1111</option>
-                          <option value="2">2222</option>
-                        </select>
-                      </th>
-                      <th>
-                      </th>
-                      <th>
-                      </th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                </tfoot>
-
-                <tbody>
-                    {% for candidate in candidates %}
-                        <tr>
-                            <td>{{ candidate.candidate_name}}</td>
-                            <td>{{ candidate.address}}</td>
-                            <td>{{ candidate.city.city_name}}, {{ candidate.country.country_name}}</td>
-                            <td>{% if candidate.owner_info %}{{ candidate.owner_info}} {% else %}NA{% endif %}</td>
-                            <td>{{ candidate.employee_size}}</td>
-                            <td>
-                                <a class="btn btn-success btn-sm" href="/candidate/candidate-detail/{{ candidate.id }}">Edit</a>
-                                <a class="btn btn-danger btn-sm" onclick="btn_delete_click('{{ candidate.id }}');"> Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div id="div_showing_quotes" class="col-12 d-flex justify-content-between align-items-center pagination_conatiner quote_table_bottom" style="">
-                  <div class="row_count_container">
-                    <!-- <span>Show</span> -->
-                    <select class="form-control" name="page_size" id="quote_table_no_of_rows" onchange="quoteRowCountChange();" style="display: inline; height: 25px; padding: 0 5px; width: 75px;">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                    <span>Records</span>
+            <div class="col-12 booking-list-wrapper">
+                <div class="table-responsive nicescroll" style="margin-bottom: 24px;">
+                    <table id="booking_table" class="table listing-table expand_td w-100">
+                        <thead>
+                            <th name='candidate_name' >Candidate Name</th>
+                            <th name='address' >Address</th>
+                            <th name='city' >City</th>
+                            <th name='owner_info' >Owner Info</th>
+                            <th name='employee_size' >Employee Size</th>
+                            <th name='' >Actions</th>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th><input class="form-control form-control-sm w-100" placeholder="Candidate Name" type="text" /></th>
+                            <th><input class="form-control form-control-sm w-100" placeholder="Address" type="text" /></th>
+                            <th><input class="form-control form-control-sm w-100" placeholder="City" type="text" /></th>
+                            <th><input class="form-control form-control-sm w-100" placeholder="Owner Info" type="text" /></th>
+                            <th><input class="form-control form-control-sm w-100" placeholder="Employee Size" type="text" /></th>
+                              <th></th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                        </tbody>
+                   </table>
+                   <div id="div_showing_bookings" class="col-12 d-flex justify-content-between align-items-center pagination_conatiner booking_table_bottom" style="">
+                       <div class="row_count_container">
+                            <!-- <span>Show</span> -->
+                            <select class="form-control" name="page_size" id="no_of_booking_rows" onchange="bookingRowCountChange();" style="display: inline; height: 25px; padding: 0 5px; width: 75px;">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span>Records</span>
+                       </div>
+                       <p class="m-0" >Showing bookings from <span id="booking_pageination_info"></span></p>
+                       <div class="pagination">
+                          <div class="previous" id="booking_previous_url"></div>
+                          <div class="url-buttons"><span id="booking_url_buttons"></span></div>
+                          <div class="next" id="booking_next_url"></div>
+                       </div>
                   </div>
-                  <p class="m-0" >Showing quotations from <span id="quote_pageination_info"></span></p>
-                  <div class="pagination">
-                <div class="previous" id="quote_previous_url"></div>
-                <div class="url-buttons"><span id="quote_url_buttons"></span></div>
-                <div class="next" id="quote_next_url"></div>
-              </div>
+                </div>
             </div>
+
         </div>
     </div>
     <br><br>
