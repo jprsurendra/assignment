@@ -67,7 +67,7 @@ function render_data_table_body(table_data) {
             $("#booking_table").DataTable().row.add({
                   candidate_name: row.candidate_name || "N/A",
                   address: row.address || "N/A",
-                  city: row.city.city_name + '(' + row.city.country.country_name+ ')' || "N/A",
+                  city: row.city.city_name + ' (' + row.city.country.country_name+ ')' || "N/A",
                   owner_info: row.owner_info || "N/A",
                   employee_size: row.employee_size || "N/A",
                   actions: action_td
