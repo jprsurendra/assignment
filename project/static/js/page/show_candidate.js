@@ -32,7 +32,7 @@ function create_data_table(id, data) {
   let set_columns = [
     { data: "candidate_name",},
     { data: "address",},
-    { data: "city" },
+    { data: "city_name" },
     { data: "owner_info" },
     { data: "employee_size" },
     {
@@ -91,7 +91,7 @@ function render_data_table_body(table_data, page, page_size) {
             $("#c_data_table").DataTable().row.add({
                   candidate_name: row.candidate_name || "N/A",
                   address: row.address || "N/A",
-                  city: row.city.city_name + ' (' + row.city.country.country_name+ ')' || "N/A",
+                  city_name: row.city.city_name + ' (' + row.city.country.country_name+ ')' || "N/A",
                   owner_info: row.owner_info || "N/A",
                   employee_size: row.employee_size || "N/A",
                   id: row.id || "N/A"
