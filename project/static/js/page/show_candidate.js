@@ -64,8 +64,17 @@ function create_data_table(id, data) {
 }
 
 //renderBookingTableBody
-function render_data_table_body(table_data) {
+function render_data_table_body(table_data, page, page_size) {
     let row_data = table_data.data.results;
+    table_data.data['page_info'] = {'num_pages': table_data.data.count,
+                      'start_count': page_size * (page - 1) + 1,
+                      'end_count': (page_size * (page - 1)) + 1 + row_data.length,
+                      'current_page': page,
+                      'items_per_page': page_size,
+                      'next_url': table_data.data.next,
+                      'previous_url': table_data.data.previous
+                      };
+
 
     if (!$.fn.DataTable.isDataTable("#c_data_table")) {
         create_data_table("#c_data_table");
@@ -106,7 +115,7 @@ function fetch_data(page = 1, candidate_filter_data = {}) {
         success: function (data) {
           save_curent_candidate_table_data = data;
           save_all_rendered_candidate_table_data[page]= data;
-          render_data_table_body(data);
+          render_data_table_body(data, page, row_count); // page_size
         },
     });
 }
