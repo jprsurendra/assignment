@@ -5,7 +5,7 @@ from django.http import Http404
 from django.shortcuts import render
 
 # Create your views here.
-from requests import Response
+from rest_framework.response import Response
 from rest_framework import viewsets, permissions, status
 
 from django_filters import rest_framework as filters
@@ -44,15 +44,18 @@ class CandidateViewSet(BaseModelViewSet):
             return serializer_action_classes.get(self.action, self.serializer_class)
         return self.serializer_class
 
-    def partial_update(self, request, *args, **kwargs):
-        try:
-            kwargs['partial'] = True
-            return self.update(request, *args, **kwargs)
-        except Exception as e:
-            logging.info("Path: apis/candidate/views.py Source: partial_update() Error: %s", str(e))
-            logging.info(traceback.format_exc())
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-                            data={'detail': 'There was an error processing your request. Please try again later ...', })
+    # def partial_update(self, request, *args, **kwargs):
+    #     print("partial_update.....")
+    #     try:
+    #         kwargs['partial'] = True
+    #         self.update(request, *args, **kwargs)
+    #         data = {'message': "Request submitted successfully"}
+    #         return Response(status=status.HTTP_200_OK, data=data)
+    #     except Exception as e:
+    #         logging.info("Path: apis/candidate/views.py Source: partial_update() Error: %s", str(e))
+    #         logging.info(traceback.format_exc())
+    #         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    #                         data={'detail': 'There was an error processing your request. Please try again later ...', })
 
     def destroy(self, request, *args, **kwargs):
         _status = status.HTTP_200_OK
